@@ -1,0 +1,41 @@
+<div class="container">
+<h2>Add New Vehicle Form</h2>
+
+<form  #newVehicleForm="ngForm" (ngSubmit)="createNew(newVehicleForm)">
+  <label  for="Make"><h4>Make</h4></label>
+
+<select class="form-control" id="make" name="make" (change)="selectionChanged($event)"  #make='ngModel' ngModel [ngClass]="{ 'is-invalid': make.touched && make.invalid }" required>
+  <option value="" [selected]=true [disabled]="true">Select One</option>
+   <option *ngFor="let option of makes" [ngValue]="option.id">{{option.name}}</option>
+  </select>
+  <div class="bg-danger p-2" style="color:white;" *ngIf="make.touched && make.invalid">Please select the make of the car</div>
+   <br/>
+  <label for="model"><h4>Model</h4></label>
+  <select class="form-control" id="model" name="model" ngModel #model='ngModel' [ngClass]="{ 'is-invalid': model.touched && model.invalid }" required>
+      <option  value="" [selected]=true [disabled]="true" *ngIf="!this.models">Select A Make First</option>
+      <option value="" [selected]=true [disabled]="true" *ngIf="this.models">Select A Model</option>
+       <option *ngFor="let option of models" [ngValue]="option.id" >{{option.name}}</option>
+      </select>
+      <div class="bg-danger p-2" style="color:white;" *ngIf="model.touched && model.invalid">Please select the model of the car</div>
+      <br/>
+
+      <h4>Features</h4>
+
+
+
+<div *ngFor="let order of features; let i = index">
+      <label for="feature{{i}}">
+          <input id="feature{{i}" name="feature{{i}}" ngModel type="checkbox" >
+          {{features[i].name}}
+
+        </label>
+      </div>
+
+
+
+
+
+  <button class="form-control" class="btn btn-block" [ngClass]="{'btn-success': newVehicleForm.valid,'btn-warning':newVehicleForm.invalid}"  [disabled]='newVehicleForm.invalid'>Submit</button>
+</form>
+
+</div>

@@ -1,0 +1,88 @@
+*.swp
+*.*~
+project.lock.json
+.DS_Store
+*.pyc
+nupkg/
+
+# Visual Studio Code
+.vscode
+
+# Rider
+.idea
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+build/
+bld/
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+msbuild.log
+msbuild.err
+msbuild.wrn
+
+# Visual Studio 2015
+.vs/
+
+
+
+#angular8
+
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+angular8/dist
+angular8/tmp
+/out-tsc
+# Only exists if Bazel was run
+angular8/bazel-out
+
+# dependencies
+angular8/node_modules
+
+# profiling files
+angular8/chrome-profiler-events.json
+angular8/speed-measure-plugin.json
+
+# IDEs and editors
+angular8/.idea
+angular8/.project
+angular8/.classpath
+angular8/.c9/
+angular8/*.launch
+angular8/.settings/
+angular8/*.sublime-workspace
+
+# IDE - VSCode
+angular8/.vscode/*
+angular8/!.vscode/settings.json
+angular8/!.vscode/tasks.json
+angular8/!.vscode/launch.json
+angular8/!.vscode/extensions.json
+angular8/.history/*
+
+# misc
+angular8/.sass-cache
+angular8/connect.lock
+angular8/coverage
+angular8/libpeerconnection.log
+angular8/npm-debug.log
+angular8/yarn-error.log
+angular8/testem.log
+angular8/typings
+
+# System Files
+angular8/.DS_Store
+angular8/Thumbs.db
