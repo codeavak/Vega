@@ -7,9 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./new-car-form.component.css']
 })
 export class NewCarFormComponent implements OnInit {
-makes:any[];
-models:any[];
-features:any[];
+makes:any;
+models:any;
+features:any;
 selectedMake:any=true;
 selectedModel:any=true;
 
