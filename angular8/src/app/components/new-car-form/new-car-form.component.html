@@ -10,6 +10,8 @@
   </select>
   <div class="bg-danger p-2" style="color:white;" *ngIf="make.touched && make.invalid">Please select the make of the car</div>
    <br/>
+
+   <div *ngIf="models">
   <label for="model"><h4>Model</h4></label>
   <select class="form-control" id="model" name="model" ngModel #model='ngModel' [ngClass]="{ 'is-invalid': model.touched && model.invalid }" required>
       <option  value="" [selected]=true [disabled]="true" *ngIf="!this.models">Select A Make First</option>
@@ -18,7 +20,7 @@
       </select>
       <div class="bg-danger p-2" style="color:white;" *ngIf="model.touched && model.invalid">Please select the model of the car</div>
       <br/>
-
+    </div>
       <h4>Features</h4>
 
 
