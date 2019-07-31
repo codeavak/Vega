@@ -1,5 +1,6 @@
 import { VehicleService } from './../../services/vehicle.service';
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-new-car-form',
@@ -13,7 +14,7 @@ features: any;
 selectedMake: any = true;
 selectedModel: any = true;
 
-  constructor(private service: VehicleService) { }
+  constructor(private service: VehicleService,private toastr: ToastrService) { }
 
   selectionChanged = (newItem) => {
     this.models = this.makes[parseInt(newItem.target.value) - 1].models; }
@@ -31,7 +32,14 @@ selectedModel: any = true;
                                delete newV.make;
                                newV.VehicleFeatures = postFeatures;
                                console.log(newV);
-                               this.service.postVehicle(newV).subscribe(succ=>console.log(succ),err=>console.log(err));
+                               this.service.postVehicle(newV).subscribe(
+                                 succ=>{console.log(succ);
+                                  newVehicle.reset();
+                                  this.toastr.success('New Vehicle Posted Successfully!', 'Success!');}
+                                 ,err=>{console.log(err);
+                                  this.toastr.error('There was a problem submitting your form! Please try again!', 'Error!');
+                                });
+
 
   }
 

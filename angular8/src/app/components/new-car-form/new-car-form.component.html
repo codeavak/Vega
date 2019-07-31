@@ -1,7 +1,7 @@
 <div class="mt-2">
 <h2 class="mb-5">Add New Vehicle Form</h2>
 
-<form  #newVehicleForm="ngForm" (ngSubmit)="createNew(newVehicleForm)">
+<form class="mb-5" #newVehicleForm="ngForm" (ngSubmit)="createNew(newVehicleForm)">
   <label  for="Make"><h4>Make</h4></label>
 
 <select class="form-control" id="make" name="make" (change)="selectionChanged($event)"  #make='ngModel' ngModel [ngClass]="{ 'is-invalid': make.touched && make.invalid }" required>
