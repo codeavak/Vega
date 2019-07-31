@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using vega.Models;
 
 namespace vega.Migrations
 {
     [DbContext(typeof(VegaContext))]
-    partial class VegaContextModelSnapshot : ModelSnapshot
+    [Migration("20190731211134_renamed vehicle table to vehicles")]
+    partial class renamedvehicletabletovehicles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

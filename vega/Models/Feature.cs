@@ -7,10 +7,10 @@ namespace vega.Models
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public ICollection<ModelFeature> ModelFeatures { get; set; }
+        public ICollection<VehicleFeature> VehicleFeatures { get; set; }
         public Feature()
         {
-            this.ModelFeatures = new List<ModelFeature>();
+            this.VehicleFeatures = new List<VehicleFeature>();
         }
 
     }

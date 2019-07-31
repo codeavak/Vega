@@ -15,12 +15,7 @@ namespace vega.Models
         public Make Make { get; set; }
         public int MakeId { get; set; }
 
-        public ICollection<ModelFeature> ModelFeatures { get;  }
-
-        public Model()
-        {
-            this.ModelFeatures = new List<ModelFeature>();
-        }
+ 
         
     }
 }

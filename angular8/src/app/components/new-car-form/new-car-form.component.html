@@ -1,4 +1,4 @@
-<div class="mt-5">
+<div class="mt-2">
 <h2 class="mb-5">Add New Vehicle Form</h2>
 
 <form  #newVehicleForm="ngForm" (ngSubmit)="createNew(newVehicleForm)">
@@ -13,7 +13,7 @@
 
    <div *ngIf="models">
   <label for="model"><h4>Model</h4></label>
-  <select class="form-control" id="model" name="model" ngModel #model='ngModel' [ngClass]="{ 'is-invalid': model.touched && model.invalid }" required>
+  <select class="form-control" id="model" name="ModelId" ngModel #model='ngModel' [ngClass]="{ 'is-invalid': model.touched && model.invalid }" required>
       <option  value="" [selected]=true [disabled]="true" *ngIf="!this.models">Select A Make First</option>
       <option value="" [selected]=true [disabled]="true" *ngIf="this.models">Select A Model</option>
        <option *ngFor="let option of models" [ngValue]="option.id" >{{option.name}}</option>
@@ -27,16 +27,31 @@
 
 <div *ngFor="let order of features; let i = index">
       <label for="feature{{i}}">
-          <input id="feature{{i}" name="feature{{i}}" ngModel type="checkbox" >
+          <input  id="feature{{i}" name="feature{{i}}" ngModel type="checkbox" >
           {{features[i].name}}
 
         </label>
       </div>
 
+<h4>Is the car registered?</h4>
+      <label class="mr-5">
+        <input  type="radio" ngModel name="IsRegistered" value=true required><span class="ml-2">Yes</span>
+      </label>
+      <label>
+        <input  type="radio" ngModel name="IsRegistered" value=false required><span class="ml-2">No</span>
+      </label>
+      <br/>
+
+      <label for="contactName"><h4>Contact Name</h4></label>
+      <input class="form-control" id="contactName" ngModel name="ContactName" type="text"/>
+      <label for="contactPhone"><h4>Contact Phone</h4></label>
+      <input class="form-control" id="contactPhone" ngModel name="ContactPhone" type="text"/>
+      <label for="contactEmail"><h4>Contact Email</h4></label>
+      <input class="form-control" id="contactEmail" ngModel name="ContactEmail" type="text"/>
 
 
-
-
+      <label for="textareaEdit"><h4>More Info</h4></label>
+      <textarea class="form-control mb-2" id="textareaEdit" ngModel name="MoreInfo" rows=5></textarea>
   <button class="form-control" class="btn btn-block" [ngClass]="{'btn-success': newVehicleForm.valid,'btn-warning':newVehicleForm.invalid}"  [disabled]='newVehicleForm.invalid'>Submit</button>
 </form>
 

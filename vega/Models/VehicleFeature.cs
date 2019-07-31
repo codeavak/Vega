@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace vega.Models
 {
-    public class ModelFeature
+    public class VehicleFeature
     {
-        public int ModelId { get; set; }
-        public Model Model { get; set; }
+        public int VehicleId { get; set; }
+        public Vehicle Vehicle { get; set; }
 
         public int FeatureId { get; set; }
         public Feature Feature { get; set; }

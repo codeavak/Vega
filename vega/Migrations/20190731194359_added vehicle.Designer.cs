@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using vega.Models;
 
 namespace vega.Migrations
 {
     [DbContext(typeof(VegaContext))]
-    partial class VegaContextModelSnapshot : ModelSnapshot
+    [Migration("20190731194359_added vehicle")]
+    partial class addedvehicle
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -83,15 +85,15 @@ namespace vega.Migrations
 
                     b.Property<bool>("IsRegistered");
 
-                    b.Property<int>("ModelId");
+                    b.Property<string>("ModeInfo");
 
-                    b.Property<string>("MoreInfo");
+                    b.Property<int>("ModelId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ModelId");
 
-                    b.ToTable("vehicles");
+                    b.ToTable("Vehicle");
                 });
 
             modelBuilder.Entity("vega.Models.VehicleFeature", b =>

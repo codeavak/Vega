@@ -12,4 +12,5 @@ export class VehicleService {
 
   getFeatures = () => this.http.get(this.BaseUrl + 'api/features');
   getMakes = () => this.http.get(this.BaseUrl + 'api/makes');
+  postVehicle = (newVehicle: any) => this.http.post(this.BaseUrl + 'api/vehicles', newVehicle);
 }
