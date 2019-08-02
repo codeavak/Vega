@@ -7,6 +7,7 @@ import { NewCarFormComponent } from './components/new-car-form/new-car-form.comp
 
 const routes: Routes = [{ path: 'home', component: HomeComponent },
 { path: 'newcarform',      component: NewCarFormComponent },
+{ path: 'newcarform/:id',      component: NewCarFormComponent },
 { path: 'carlist',      component: CarListComponent },
 
 { path: '',

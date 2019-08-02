@@ -8,7 +8,8 @@ using vega.Models;
 using vega.Models.ViewModels;
 
 namespace vega.Controllers.API_Controllers
-{ public class VehicleDisplay
+{
+    public class VehicleDisplay
     {
         public int Id { get; set; }
         public string Make { get; set; }
@@ -34,17 +35,17 @@ namespace vega.Controllers.API_Controllers
 
             var vehicles = await _context.Vehicle.ToListAsync();
             vehicles.ForEach(v => v.VehicleFeatures = _context.VehicleFeatures.Where(vf => vf.VehicleId == v.Id).ToList());
-            vehicles.ForEach(v => v.Model = _context.Models.Where(m => m.Id == v.Id).FirstOrDefault());
-            vehicles.ForEach(v=>v.Model.Make= _context.Makes.Where(m => m.Id == v.Model.MakeId).FirstOrDefault());
+            vehicles.ForEach(v => v.Model = _context.Models.Where(m => m.Id == v.ModelId).FirstOrDefault());
+            vehicles.ForEach(v => v.Model.Make = _context.Makes.Where(m => m.Id == v.Model.MakeId).FirstOrDefault());
 
 
-            var result=vehicles.Select(v => new VehicleDisplay
+            var result = vehicles.Select(v => new VehicleDisplay
             {
                 Id = v.Id,
                 Make = v.Model.Make.Name,
                 Model = v.Model.Name,
                 Contact = v.ContactName
-            }).ToList();
+            }).ToList<VehicleDisplay>();
 
             return result;
         }
@@ -62,7 +63,8 @@ namespace vega.Controllers.API_Controllers
             }
 
             vehicle.VehicleFeatures = _context.VehicleFeatures.Where(vf => vf.VehicleId == vehicle.Id).ToList();
-
+            vehicle.Model = _context.Models.Where(m => m.Id == vehicle.ModelId).FirstOrDefault();
+            vehicle.Model.Make = _context.Makes.Where(m => m.Id == vehicle.Model.MakeId).FirstOrDefault();
             return vehicle;
         }
 
@@ -88,12 +90,12 @@ namespace vega.Controllers.API_Controllers
                 VehicleFeatures = vehicleVM.VehicleFeatures.Select(f => new VehicleFeature { FeatureId = f, VehicleId = vehicleVM.Id }).ToList()
             };
 
-            var features=_context.VehicleFeatures.Where(v=>v.VehicleId==vehicle.Id);
+            var features = _context.VehicleFeatures.Where(v => v.VehicleId == vehicle.Id);
             _context.VehicleFeatures.RemoveRange(features);
             _context.VehicleFeatures.AddRange(vehicle.VehicleFeatures);
 
             _context.Entry(vehicle).State = EntityState.Modified;
-  
+
             try
             {
                 await _context.SaveChangesAsync();

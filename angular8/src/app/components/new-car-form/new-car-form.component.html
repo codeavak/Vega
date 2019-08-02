@@ -1,10 +1,11 @@
 <div class="mt-2">
-<h2 class="mb-5">Add New Vehicle Form</h2>
+<h2 *ngIf="!editMode" class="mb-5">Add New Vehicle Form</h2>
+<h2 *ngIf="editMode" class="mb-5">Edit Existing Vehicle</h2>
 
 <form class="mb-5" #newVehicleForm="ngForm" (ngSubmit)="createNew(newVehicleForm)">
   <label  for="Make"><h4>Make</h4></label>
 
-<select class="form-control" id="make" name="make" (change)="selectionChanged($event)"  #make='ngModel' ngModel [ngClass]="{ 'is-invalid': make.touched && make.invalid }" required>
+<select class="form-control" id="make" name="make" (change)="selectionChanged($event)"  #make="ngModel" [(ngModel)]="makeValue" [ngClass]="{ 'is-invalid': make.touched && make.invalid }" required>
   <option value="" [selected]=true [disabled]="true">Select One</option>
    <option *ngFor="let option of makes" [ngValue]="option.id">{{option.name}}</option>
   </select>
@@ -13,7 +14,7 @@
 
    <div *ngIf="models">
   <label for="model"><h4>Model</h4></label>
-  <select class="form-control" id="model" name="ModelId" ngModel #model='ngModel' [ngClass]="{ 'is-invalid': model.touched && model.invalid }" required>
+  <select class="form-control" id="model" name="ModelId"  #model='ngModel' [(ngModel)]="modelValue" [ngClass]="{ 'is-invalid': model.touched && model.invalid }" required>
       <option  value="" [selected]=true [disabled]="true" *ngIf="!this.models">Select A Make First</option>
       <option value="" [selected]=true [disabled]="true" *ngIf="this.models">Select A Model</option>
        <option *ngFor="let option of models" [ngValue]="option.id" >{{option.name}}</option>
@@ -52,7 +53,9 @@
 
       <label for="textareaEdit"><h4>More Info</h4></label>
       <textarea class="form-control mb-2" id="textareaEdit" ngModel name="MoreInfo" rows=5></textarea>
-  <button class="form-control" class="btn btn-block" [ngClass]="{'btn-success': newVehicleForm.valid,'btn-warning':newVehicleForm.invalid}"  [disabled]='newVehicleForm.invalid'>Submit</button>
+  <button *ngIf="!editMode" class="form-control" class="btn btn-block" [ngClass]="{'btn-success': newVehicleForm.valid,'btn-warning':newVehicleForm.invalid}"  [disabled]='newVehicleForm.invalid'>Submit</button>
+  <button *ngIf="editMode" class="form-control" class="btn btn-block" [ngClass]="{'btn-success': newVehicleForm.valid,'btn-warning':newVehicleForm.invalid}"  [disabled]='newVehicleForm.invalid'>Save Changes</button>
+  <button class="form-control" class="btn btn-primary btn-block">Return to Car List</button>
 </form>
 
 </div>
