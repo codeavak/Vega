@@ -1,15 +1,20 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using vega.Models;
 using vega.Models.ViewModels;
 
 namespace vega.Controllers.API_Controllers
-{
+{ public class VehicleDisplay
+    {
+        public int Id { get; set; }
+        public string Make { get; set; }
+        public string Model { get; set; }
+        public string Contact { get; set; }
+    }
     [Route("api/[controller]")]
     [ApiController]
     public class VehiclesController : ControllerBase
@@ -23,9 +28,25 @@ namespace vega.Controllers.API_Controllers
 
         // GET: api/Vehicles
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Vehicle>>> GetVehicle()
+        public async Task<ActionResult<IEnumerable<VehicleDisplay>>> GetVehicle()
         {
-            return await _context.Vehicle.ToListAsync();
+
+
+            var vehicles = await _context.Vehicle.ToListAsync();
+            vehicles.ForEach(v => v.VehicleFeatures = _context.VehicleFeatures.Where(vf => vf.VehicleId == v.Id).ToList());
+            vehicles.ForEach(v => v.Model = _context.Models.Where(m => m.Id == v.Id).FirstOrDefault());
+            vehicles.ForEach(v=>v.Model.Make= _context.Makes.Where(m => m.Id == v.Model.MakeId).FirstOrDefault());
+
+
+            var result=vehicles.Select(v => new VehicleDisplay
+            {
+                Id = v.Id,
+                Make = v.Model.Make.Name,
+                Model = v.Model.Name,
+                Contact = v.ContactName
+            }).ToList();
+
+            return result;
         }
 
         // GET: api/Vehicles/5
@@ -34,25 +55,45 @@ namespace vega.Controllers.API_Controllers
         {
             var vehicle = await _context.Vehicle.FindAsync(id);
 
+
             if (vehicle == null)
             {
                 return NotFound();
             }
+
+            vehicle.VehicleFeatures = _context.VehicleFeatures.Where(vf => vf.VehicleId == vehicle.Id).ToList();
 
             return vehicle;
         }
 
         // PUT: api/Vehicles/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutVehicle(int id, Vehicle vehicle)
+        public async Task<IActionResult> PutVehicle(int id, VehicleVM vehicleVM)
         {
-            if (id != vehicle.Id)
+            if (id != vehicleVM.Id)
             {
                 return BadRequest();
             }
+            var vehicle = new Vehicle()
+            {
+                Id = vehicleVM.Id,
+                ModelId = vehicleVM.ModelId,
+                Model = _context.Models.FirstOrDefault(m => m.Id == vehicleVM.ModelId),
+                IsRegistered = vehicleVM.IsRegistered,
+                ContactName = vehicleVM.ContactName,
+                ContactPhone = vehicleVM.ContactPhone,
+                ContactEmail = vehicleVM.ContactEmail,
+                LastUpdated = DateTime.UtcNow,
+                MoreInfo = vehicleVM.MoreInfo,
+                VehicleFeatures = vehicleVM.VehicleFeatures.Select(f => new VehicleFeature { FeatureId = f, VehicleId = vehicleVM.Id }).ToList()
+            };
+
+            var features=_context.VehicleFeatures.Where(v=>v.VehicleId==vehicle.Id);
+            _context.VehicleFeatures.RemoveRange(features);
+            _context.VehicleFeatures.AddRange(vehicle.VehicleFeatures);
 
             _context.Entry(vehicle).State = EntityState.Modified;
-
+  
             try
             {
                 await _context.SaveChangesAsync();
@@ -69,13 +110,15 @@ namespace vega.Controllers.API_Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(vehicle);
         }
 
         // POST: api/Vehicles
         [HttpPost]
         public async Task<ActionResult<Vehicle>> PostVehicle(VehicleVM vehicle)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
             var newvehicle = new Vehicle
             {
                 ModelId = vehicle.ModelId,
@@ -84,15 +127,15 @@ namespace vega.Controllers.API_Controllers
                 ContactName = vehicle.ContactName,
                 ContactPhone = vehicle.ContactPhone,
                 ContactEmail = vehicle.ContactEmail,
-                MoreInfo = vehicle.MoreInfo
-
+                MoreInfo = vehicle.MoreInfo,
+                LastUpdated = DateTime.UtcNow
             };
 
             newvehicle.VehicleFeatures = vehicle.VehicleFeatures.Select(f => new VehicleFeature { FeatureId = f, VehicleId = newvehicle.Id }).ToList();
             _context.Vehicle.Add(newvehicle);
             await _context.SaveChangesAsync();
 
-            
+
 
             return CreatedAtAction("GetVehicle", new { id = newvehicle.Id }, newvehicle);
         }

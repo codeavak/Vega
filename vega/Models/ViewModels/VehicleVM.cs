@@ -7,7 +7,7 @@ namespace vega.Models.ViewModels
 {
     public class VehicleVM
     {
-    
+        public int Id { get; set; }
 
         public int ModelId { get; set; }
 

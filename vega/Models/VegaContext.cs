@@ -17,6 +17,7 @@ namespace vega.Models
         public DbSet<Model> Models { get; set; }
         public DbSet<Feature> Features { get; set; }
         public DbSet<Vehicle> Vehicles { get; set; }
+        public DbSet<VehicleFeature> VehicleFeatures { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

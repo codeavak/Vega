@@ -39,5 +39,7 @@ namespace vega.Models
         {
             this.VehicleFeatures = new List<VehicleFeature>();
         }
+
+        public DateTime LastUpdated { get; set; }
     }
 }

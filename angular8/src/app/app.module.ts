@@ -10,6 +10,7 @@ import { HomeComponent } from './components/home/home.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { CarListComponent } from './components/car-list/car-list.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { ToastrModule } from 'ngx-toastr';
     NewCarFormComponent,
     NavbarComponent,
     HomeComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    CarListComponent
   ],
   imports: [
     BrowserModule,

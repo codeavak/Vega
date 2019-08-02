@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using vega.Models;
 
 namespace vega.Migrations
 {
     [DbContext(typeof(VegaContext))]
-    partial class VegaContextModelSnapshot : ModelSnapshot
+    [Migration("20190802165402_added lastupdated to vehicle class")]
+    partial class addedlastupdatedtovehicleclass
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -107,7 +109,7 @@ namespace vega.Migrations
 
                     b.HasIndex("FeatureId");
 
-                    b.ToTable("VehicleFeatures");
+                    b.ToTable("VehicleFeature");
                 });
 
             modelBuilder.Entity("vega.Models.Model", b =>
