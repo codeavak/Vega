@@ -1,0 +1,32 @@
+<p>details works!</p>
+
+
+<h1>File Upload Using Angular and ASP.NET Core</h1>
+
+
+<ul>
+    <img *ngFor="let picture of pictures" [src]="picture"/>
+</ul>
+<span style="font-weight:bold;color:green;" *ngIf="progress > 0 && progress < 100">
+    {{progress}}%
+  </span>
+  <span style="font-weight:bold;color:green;" *ngIf="message">
+    {{message}}
+  </span>
+
+
+Image 1:
+<input #file type="file" single (change)="upload(file.files)" accept="image/jpeg, image/gif, image/png"/>
+<br/>
+
+
+
+Image 2:
+<input #file2 type="file" single (change)="upload(file2.files)" accept="image/jpeg, image/gif, image/png"/>
+<br/>
+
+
+
+Image 3:
+<input #file3 type="file" single (change)="upload(file3.files)" accept="image/jpeg, image/gif, image/png"/>
+<br/>

@@ -11,6 +11,9 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { CarListComponent } from './components/car-list/car-list.component';
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DetailsComponent } from './components/details/details.component';
 
 
 @NgModule({
@@ -20,7 +23,10 @@ import { CarListComponent } from './components/car-list/car-list.component';
     NavbarComponent,
     HomeComponent,
     PageNotFoundComponent,
-    CarListComponent
+    CarListComponent,
+    ConfirmationDialogComponent,
+    DetailsComponent,
+  
   ],
   imports: [
     BrowserModule,
@@ -28,8 +34,11 @@ import { CarListComponent } from './components/car-list/car-list.component';
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    NgbModule 
+
   ],
+  entryComponents: [ConfirmationDialogComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

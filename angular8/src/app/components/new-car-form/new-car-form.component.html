@@ -2,11 +2,11 @@
 <h2 *ngIf="!editMode" class="mb-5">Add New Vehicle Form</h2>
 <h2 *ngIf="editMode" class="mb-5">Edit Existing Vehicle</h2>
 
-<form class="mb-5" #newVehicleForm="ngForm" (ngSubmit)="createNew(newVehicleForm)">
+<form class="mb-5" #newVehicleForm="ngForm" (ngSubmit)="createOrUpdate(newVehicleForm)">
   <label  for="Make"><h4>Make</h4></label>
 
 <select class="form-control" id="make" name="make" (change)="selectionChanged($event)"  #make="ngModel" [(ngModel)]="makeValue" [ngClass]="{ 'is-invalid': make.touched && make.invalid }" required>
-  <option value="" [selected]=true [disabled]="true">Select One</option>
+  <option value="-1" [selected]=true [disabled]="true">Select One</option>
    <option *ngFor="let option of makes" [ngValue]="option.id">{{option.name}}</option>
   </select>
   <div class="bg-danger p-2" style="color:white;" *ngIf="make.touched && make.invalid">Please select the make of the car</div>
@@ -15,8 +15,8 @@
    <div *ngIf="models">
   <label for="model"><h4>Model</h4></label>
   <select class="form-control" id="model" name="ModelId"  #model='ngModel' [(ngModel)]="modelValue" [ngClass]="{ 'is-invalid': model.touched && model.invalid }" required>
-      <option  value="" [selected]=true [disabled]="true" *ngIf="!this.models">Select A Make First</option>
-      <option value="" [selected]=true [disabled]="true" *ngIf="this.models">Select A Model</option>
+      <option  value="-1" [selected]=true [disabled]="true" *ngIf="!this.models">Select A Make First</option>
+      <option value="-1" [selected]=true [disabled]="true" *ngIf="this.models">Select A Model</option>
        <option *ngFor="let option of models" [ngValue]="option.id" >{{option.name}}</option>
       </select>
       <div class="bg-danger p-2" style="color:white;" *ngIf="model.touched && model.invalid">Please select the model of the car</div>
@@ -28,7 +28,7 @@
 
 <div *ngFor="let order of features; let i = index">
       <label for="feature{{i}}">
-          <input  id="feature{{i}" name="feature{{i}}" ngModel type="checkbox" >
+          <input  id="feature{{i}}" name="feature{{i}}" #feature{{i}}  [(ngModel)]="featureValues[i]" type="checkbox" >
           {{features[i].name}}
 
         </label>
@@ -36,26 +36,26 @@
 
 <h4>Is the car registered?</h4>
       <label class="mr-5">
-        <input  type="radio" ngModel name="IsRegistered" value=true required><span class="ml-2">Yes</span>
+        <input  type="radio" [value]='true' #IsRegistered='ngModel' [(ngModel)]='registeredValue' name="IsRegistered" required><span class="ml-2">Yes</span>
       </label>
       <label>
-        <input  type="radio" ngModel name="IsRegistered" value=false required><span class="ml-2">No</span>
+        <input  type="radio" [value]='false'  #IsRegistered='ngModel' [(ngModel)]='registeredValue' name="IsRegistered"  required><span class="ml-2">No</span>
       </label>
       <br/>
 
       <label for="contactName"><h4>Contact Name</h4></label>
-      <input class="form-control" id="contactName" ngModel name="ContactName" type="text"/>
+      <input class="form-control" id="contactName" #contactName='ngModel' [(ngModel)]='nameValue' name="ContactName" type="text"/>
       <label for="contactPhone"><h4>Contact Phone</h4></label>
-      <input class="form-control" id="contactPhone" ngModel name="ContactPhone" type="text"/>
+      <input class="form-control" id="contactPhone" #contactPhone='ngModel' [(ngModel)]='phoneValue' name="ContactPhone" type="text"/>
       <label for="contactEmail"><h4>Contact Email</h4></label>
-      <input class="form-control" id="contactEmail" ngModel name="ContactEmail" type="text"/>
+      <input class="form-control" id="contactEmail" #contactEmail='ngModel' [(ngModel)]='emailValue' name="ContactEmail" type="text"/>
 
 
       <label for="textareaEdit"><h4>More Info</h4></label>
-      <textarea class="form-control mb-2" id="textareaEdit" ngModel name="MoreInfo" rows=5></textarea>
+      <textarea class="form-control mb-2" id="textareaEdit" #MoreInfo='ngModel' [(ngModel)]='moreinfoValue' name="MoreInfo" rows=5></textarea>
   <button *ngIf="!editMode" class="form-control" class="btn btn-block" [ngClass]="{'btn-success': newVehicleForm.valid,'btn-warning':newVehicleForm.invalid}"  [disabled]='newVehicleForm.invalid'>Submit</button>
   <button *ngIf="editMode" class="form-control" class="btn btn-block" [ngClass]="{'btn-success': newVehicleForm.valid,'btn-warning':newVehicleForm.invalid}"  [disabled]='newVehicleForm.invalid'>Save Changes</button>
-  <button class="form-control" class="btn btn-primary btn-block">Return to Car List</button>
+  <button type="button" [routerLink]="['/carlist']" class="form-control" class="btn btn-primary btn-block">Return to Car List</button>
 </form>
 
 </div>

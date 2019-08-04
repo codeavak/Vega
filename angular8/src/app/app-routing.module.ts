@@ -4,10 +4,13 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { NewCarFormComponent } from './components/new-car-form/new-car-form.component';
+import { DetailsComponent } from './components/details/details.component';
 
 const routes: Routes = [{ path: 'home', component: HomeComponent },
 { path: 'newcarform',      component: NewCarFormComponent },
-{ path: 'newcarform/:id',      component: NewCarFormComponent },
+{ path: 'editcarform/:id',      component: NewCarFormComponent },
+{ path: 'details/:id',      component: DetailsComponent },
+
 { path: 'carlist',      component: CarListComponent },
 
 { path: '',
